@@ -1,5 +1,5 @@
-// Trans Class: Represents a Transaction
-class Trans {
+// Money Class: Represents a Transaction
+class Money {
   constructor(date, name, amount) {
     this.date = date;
     this.name = name;
@@ -7,23 +7,23 @@ class Trans {
   }
 }
 
-// UI Class: Handle UI Tasks
+// UI Class: Handle UI Tasks test
 class UI {
   static displayTransaction() {
-    const Trans = Store.getTransaction();
+    const Trans = Debt_Owed.getDebt();
 
-    Trans.forEach(transaction => UI.addTransToList(transaction));
+    Trans.forEach(money => UI.addTransToList(money));
   }
 
-  static addTransToList(transaction) {
+  static addTransToList(money) {
     const list = document.querySelector("#debt-list");
 
     const row = document.createElement("tr");
 
     row.innerHTML = `
-        <td>${transaction.date}</td>
-        <td>${transaction.name}</td>
-        <td>${transaction.amount}</td>
+        <td>${money.date}</td>
+        <td>${money.name}</td>
+        <td>${money.amount}</td>
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
       `;
 
@@ -105,13 +105,13 @@ document.querySelector("#debt-form").addEventListener("submit", e => {
     UI.showAlert("Please fill in all fields", "danger");
   } else {
     // Instatiate Transaction
-    const debt = new Trans(date, name, amount);
+    const money = new Money(date, name, amount);
 
-    // Add Book to UI
-    UI.addTransToList(debt);
+    // Add transaction to UI
+    UI.addTransToList(money);
 
-    // Add book to store
-    Debt_Owed.addTransaction(debt);
+    // Add transaction to store
+    Debt_Owed.addTransaction(money);
 
     // Show success message
     UI.showAlert("Transaction Added", "success");
